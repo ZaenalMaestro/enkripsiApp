@@ -11,8 +11,8 @@
          </div>
          <div class="card-body">
             <!-- prograssbar -->
-            <div class="progress d-none">
-               <div class="progress-bar pb-dashboard progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress d-none" style="border-radius: 0%;">
+               <div class="progress-bar pb-dashboard progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <!-- endprogressbar -->
 
@@ -41,7 +41,7 @@
                </div>
 
                <!-- tombol pengujian -->
-               <button type="button" class="btn btn-block btn-success pengujian">Mulai Pengujian</button>
+               <button type="button" class="btn btn-block btn-primary pengujian">Mulai Pengujian</button>
             </form>
          </div>
       </div>
@@ -56,28 +56,28 @@
          </div>
 
          <div class="card-body" style="height: 242px">
-               <table cellpadding="10">
-                  <tr>
-                     <td><b>Nama Video</b></td>
-                     <td>:</td>
-                     <td class="nama_file" style="width: 200px">-</td>
-                  </tr>
-                  <tr>
-                     <td><b>Ukuran Video</b></td>
-                     <td>:</td>
-                     <td class="ukuran_file">-</td>
-                  </tr>
-                  <tr>
-                     <td><b>Kecepatan Enkripsi</b></td>
-                     <td>:</td>
-                     <td class="kecepatan_enkripsi">-</td>
-                  </tr>
-                  <tr>
-                     <td><b>Kecepatan Dekripsi</b></td>
-                     <td>:</td>
-                     <td class="kecepatan_dekripsi">-</td>
-                  </tr>
-               </table>
+            <table cellpadding="10">
+               <tr>
+                  <td><b>Nama Video</b></td>
+                  <td>:</td>
+                  <td class="nama_file" style="width: 200px">-</td>
+               </tr>
+               <tr>
+                  <td><b>Ukuran Video</b></td>
+                  <td>:</td>
+                  <td class="ukuran_file">-</td>
+               </tr>
+               <tr>
+                  <td><b>Kecepatan Enkripsi</b></td>
+                  <td>:</td>
+                  <td class="kecepatan_enkripsi">-</td>
+               </tr>
+               <tr>
+                  <td><b>Kecepatan Dekripsi</b></td>
+                  <td>:</td>
+                  <td class="kecepatan_dekripsi">-</td>
+               </tr>
+            </table>
          </div>
 
       </div>

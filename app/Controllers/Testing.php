@@ -12,21 +12,27 @@ class Testing extends ResourceController
 {
 	use ResponseTrait;
 	private $testingModel;
-	private $cipher;
+	private $twofish;
 
 	public function __construct()
 	{
 		# Insialisasi model
 		$this->testingModel = new TestingModel();
 		# insialisasi algoritma twofish
-		$this->cipher = new Twofish('ecb');
-		$this->cipher->setKeyLength(256);
+		$this->twofish = new Twofish('ecb');
+		$this->twofish->setKeyLength(256);
 	}
 
 	#getdata
 	public function getDataTesting()
 	{
 		$data = $this->testingModel->findAll();
+
+		# kembalikan array kosong jika data didatabase kosong
+		if (empty($data)) {
+			return $this->respond(['data' => []]);
+		}
+
 		$nomor = 1;
 		foreach ($data as $uji) {
 			$uji['nomor'] = $nomor++;
@@ -77,7 +83,7 @@ class Testing extends ResourceController
 		move_uploaded_file($data['video']['tmp_name'], "video/testing/$filename");
 
 		# set key enkripsi 
-		$this->cipher->setPassword($data['key']);
+		$this->twofish->setPassword($data['key']);
 
 		# get data video yg baru saja dipindahkan ke folder public/video/testing		
 		$video = file_get_contents("video/testing/" . $filename);
@@ -85,7 +91,7 @@ class Testing extends ResourceController
 		#uji kecepatan enkripsi video
 		$start_time = microtime(true);
 		# proses enkripsi
-		$enkripsi = $this->cipher->encrypt($video);
+		$enkripsi = $this->twofish->encrypt($video);
 
 		$end_time = microtime(true);
 
@@ -106,7 +112,7 @@ class Testing extends ResourceController
 	private function dekripsi($data, $filename)
 	{
 		# set key enkripsi 
-		$this->cipher->setPassword($data['key']);
+		$this->twofish->setPassword($data['key']);
 
 		# get data video yg baru saja dipindahkan ke folder public/video		
 		$video = file_get_contents("video/testing/" . $filename);
@@ -115,7 +121,7 @@ class Testing extends ResourceController
 		$start_time = microtime(true);
 
 		#dekripsi video
-		$dekripsi = $this->cipher->decrypt($video);
+		$dekripsi = $this->twofish->decrypt($video);
 		$end_time = microtime(true);
 
 		#hitung kecepatan dekripsi

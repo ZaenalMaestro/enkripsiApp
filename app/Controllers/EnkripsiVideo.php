@@ -28,8 +28,12 @@ class EnkripsiVideo extends ResourceController
 	public function getData()
 	{
 		$data = $this->videoModel->findAll();
-		$nomor = 1;
-		
+		$nomor = 1;		
+
+		# kembalikan array kosong jika data didatabase kosong
+		if (empty($data)) {
+			return $this->respond(['data' => []]);
+		}
 
 		foreach ($data as $video) {
 			$video['nomor'] = $nomor++;
@@ -68,7 +72,6 @@ class EnkripsiVideo extends ResourceController
 
 		#enkripsi video
 		$enkripsi = $this->twofish->encrypt($video);
-		var_dump(unpack('C*', $enkripsi));die;
 		file_put_contents("video/" . $filename, $enkripsi);
 
 		# simpan data kedalam database
