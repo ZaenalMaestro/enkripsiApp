@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Dashboard::index');
 $routes->get('/pengujian', 'Pengujian::index');
+$routes->get('/dekripsi', 'Dekripsi::index');
 $routes->post('/enkripsi', 'EnkripsiVideo::enkripsi');
 $routes->post('/dekripsi', 'EnkripsiVideo::dekripsi');
 $routes->post('/enkripsi-update', 'EnkripsiUpdate::enkripsi');

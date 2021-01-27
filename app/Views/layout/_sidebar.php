@@ -16,11 +16,18 @@
       Menu
    </div>
 
-   <!-- Nav Item - Dashboard -->
+   <!-- Nav Item - Enkripsi -->
    <li class="nav-item <?= ($active == 'dashboard') ? 'active' : '' ?>">
       <a class="nav-link" href="/">
          <i class="fas fa-tachometer-alt"></i>
          <span>Dashboard</span></a>
+   </li>
+
+   <!-- Nav Item - Dekripsi -->
+   <li class="nav-item <?= ($active == 'dekripsi') ? 'active' : '' ?>">
+      <a class="nav-link" href="/dekripsi">
+         <i class="fas fa-unlock"></i>
+         <span>Dekripsi</span></a>
    </li>
 
    <!-- Nav Item - Pengujian -->

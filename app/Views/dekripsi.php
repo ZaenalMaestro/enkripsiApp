@@ -8,7 +8,7 @@
    <div class="col-xl-6 col-md-6 mb-1">
       <div class="card shadow mb-4">
          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Form Enkripsi Video</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Form Dekripsi Video</h6>
          </div>
          <div class="card-body">
             <!-- prograssbar -->
@@ -29,7 +29,7 @@
 
                <!-- masukkan key -->
                <div class="form-group">
-                  <label for="formGroupExampleInput"><b>Key Enkripsi</b></label>
+                  <label for="formGroupExampleInput"><b>Key Dekripsi</b></label>
                   <input type="password" maxlength="25" id="key_twofish" class="form-control" id="formGroupExampleInput2" placeholder="Masukkan key..." autocomplete="false">
                   <div class="invalid-feedback" id="error-key">
                      placeholder
@@ -38,7 +38,7 @@
 
                <!-- tombol ekripsi dan dekripsi -->
                <div class="btn-group btn-block mt-3" role="group">
-                  <button type="button" class="btn btn-primary enkripsi">Enkripsi</button>
+                  <button type="button" class="btn btn-success dekripsi">Dekripsi</button>
                </div>
             </form>
          </div>
@@ -50,15 +50,16 @@
    <div class="col-xl-6 col-md-6 mb-1">
       <div class="card shadow mb-4" style="height: 312px">
          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Video Preview</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Download Video</h6>
          </div>
 
-         <div class="progress d-none progress-preview" style="border-radius: 0%;">
-            <div class="progress-bar pb-preview progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+         <div class="card-body text-center">
+            <h5 class="mb-5 mt-4 d-none judul-video"></h5>
+            <a download class="btn btn-danger d-none download-video">
+               <i class="fas fa-download"></i>
+               <span>Download</span>
+            </a>
          </div>
-         <h3 class="my-auto mx-auto" id="teks-video">Video preview</h3>
-         <video id="preview" class="d-none" controls="controls" style="border-color:1px solid #fff;height: 258px">
-         </video>
 
       </div>
    </div>
@@ -67,39 +68,8 @@
 </div>
 
 
-<div class="row">
-   <div class="col-md-12">
-      <div class="card shadow mb-4">
-         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Video</h6>
-         </div>
-         <div class="card-body">
-            <!-- table daftar file ter-enkripsi -->
-            <div class="table-responsive">
-               <table id="tabel-video" class="table table-striped table-bordered display" style="width:100%">
-                  <thead>
-                     <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Nama Video</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Aksi</th>
-                     </tr>
-                  </thead>
-                  <tbody class="table-video"></tbody>
-               </table>
-            </div>
-
-            <!-- end table -->
-
-         </div>
-      </div>
-   </div>
-</div>
-
-
 <script src="js/sweetalert2.js"></script>
-<script src="js/request-ajax.js"></script>
-<script src="js/update-data.js"></script>
+<script src="js/request-ajax-dekripsi.js"></script>
 
 <script src="js/jquery.js"></script>
 

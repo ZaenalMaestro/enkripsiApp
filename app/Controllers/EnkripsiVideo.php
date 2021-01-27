@@ -112,15 +112,14 @@ class EnkripsiVideo extends ResourceController
 			$dekripsi = $this->twofish->decrypt($video);
 			file_put_contents("video/" . $filename, $dekripsi);
 
-			# simpan data kedalam database
-			$this->videoModel->save([
+			// respond json
+			$respons = [
+				'status' => 200,
 				'nama_video' => $filename,
-				'key_twofish' => password_hash($data['key'], PASSWORD_DEFAULT),
-				'status' => 'dekripsi'
-			]);
-
+				'link_download' => 'video/' . $filename
+			];
 			# kembalikan response ke user
-			return $this->respond(['status' => 200]);
+			return $this->respond($respons);
 		} catch (Exception $error) {
 			// hapus vidoe yg baru saja diupload
 			unlink("video/$filename");

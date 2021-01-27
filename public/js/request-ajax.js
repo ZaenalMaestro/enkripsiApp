@@ -65,18 +65,6 @@ buttonEnkripsi.addEventListener('click', function () {
    }
 });
 
-// ketika tombol dekripsi diklik
-const buttonDekripsi = document.querySelector('.dekripsi');
-buttonDekripsi.addEventListener('click', function () {
-   // validasi input
-   if (validateErrors(fileField, key_twofish, video) == false) {
-      formData.append('video', fileField.files[0]);
-      formData.append('key', key_twofish.value);
-      xhrRequest(baseurl + '/dekripsi', 'POST', formData, 'dekripsi');
-   }
-});
-
-
 // validasi input
 function validateErrors(fileField, key_twofish, video) {
    let pesanError = {};
@@ -92,8 +80,8 @@ function validateErrors(fileField, key_twofish, video) {
    // else if (video.duration < 120) {
    //    pesanError.video = 'Durasi video minimal 2 menit';
    // } 
-   else if (fileField.size > 5242880) {
-      pesanError.video = 'file upload maksimal dari 5 Mb';
+   else if (fileField.files[0].size > 5242880) {
+      pesanError.video = 'file upload maksimal 5 Mb';
    }
    //  else if (fileField.size < 2097152) {
    //    pesanError.video = 'file upload minimal dari 2 Mb';
