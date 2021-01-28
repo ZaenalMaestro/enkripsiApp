@@ -54,7 +54,9 @@
          </div>
 
          <div class="card-body text-center">
-            <h5 class="mb-5 mt-4 d-none judul-video"></h5>
+            <p class="mt-3 d-block note-delete">** Link download dan video yang telah di-dekripsi akan <b>terhapus</b> jika <b>belum mendownload</b> video dalam waktu <br><b class="hitung-mundur text-danger">10</b> detik</p>
+            
+            <h5 class="d-none judul-video"></h5>
             <a class="btn btn-danger d-none download-video download">
                <i class="fas fa-download"></i>
                Download

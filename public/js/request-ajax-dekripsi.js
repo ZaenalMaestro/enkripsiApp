@@ -1,5 +1,6 @@
 // baseurl
 let baseurl = 'http://localhost:8080';
+let batasDownload = true;
 
 // video preview
 const input = document.getElementById('file_video');
@@ -18,6 +19,8 @@ const key_twofish = document.querySelector('#key_twofish');
 const buttonDekripsi = document.querySelector('.dekripsi');
 buttonDekripsi.addEventListener('click', function () {
    // validasi input
+   let batasDownload = true;
+   document.querySelector('.hitung-mundur').textContent = '10'
    if (validateErrors(fileField, key_twofish) == false) {
       formData.append('video', fileField.files[0]);
       formData.append('key', key_twofish.value);
@@ -91,7 +94,6 @@ function xhrRequest(url, request, fileField, pesan) {
          const progress = document.querySelector('.pb-dashboard');
          progress.style.width = percent.toFixed(0) + '%';
          progress.textContent = percent.toFixed(0) + '%';
-
       });
 
       xhr.onload = function () {
@@ -101,7 +103,7 @@ function xhrRequest(url, request, fileField, pesan) {
             const respond = JSON.parse(xhr.responseText);
 
             progressbar.classList.remove('d-block');
-            progressbar.classList.add('d-none');          
+            progressbar.classList.add('d-none');
 
             if (respond.status === 200) {
                const judulVideo = document.querySelector('.judul-video');
@@ -120,6 +122,9 @@ function xhrRequest(url, request, fileField, pesan) {
                   showConfirmButton: false,
                   timer: 2000
                });
+
+               // hapus link download dan video dekripsi setelah 10 detik jika tidak didownload
+               deleteAfterTenSeconds(10, respond.nama_video);
             } else {
                progressbar.classList.replace('d-block', 'd-none');
                progressbar.classList.add('d-none');
@@ -136,12 +141,13 @@ function xhrRequest(url, request, fileField, pesan) {
          }
       }
       xhr.send(fileField);
-   } 
+   }
 }
 
 // download file
 document.addEventListener('click', (e) => {
    if (e.target.classList.contains('download')) {
+      batasDownload = false
       e.preventDefault()
       const filename = e.target.getAttribute('data-name')
       const xhr = XMLHttpRequest()
@@ -150,13 +156,13 @@ document.addEventListener('click', (e) => {
 
       xhr.addEventListener('progress', function (event) {
          let percentComplete = Math.round((event.loaded * 99) / event.total);
-         console.log(percentComplete);
+
          const progressbar = document.querySelector('.pb-show');
          progressbar.classList.replace('d-none', 'd-block');
 
          const pbDownload = document.querySelector('.pb-download');
          pbDownload.style.width = percentComplete + "%";
-         pbDownload.textContent = 'Download '+ percentComplete + ' %';
+         pbDownload.textContent = 'Download ' + percentComplete + ' %';
 
          if (percentComplete === 99) {
             setTimeout(() => {
@@ -175,6 +181,7 @@ document.addEventListener('click', (e) => {
                const downloadVideo = document.querySelector('.download-video');
                downloadVideo.classList.add('d-none')
 
+               document.querySelector('.hitung-mundur').textContent = '10'
                // hapus video dekripsi
                deleteVideoDekripsi(filename)
             }, 3000)
@@ -194,11 +201,48 @@ document.addEventListener('click', (e) => {
    }
 });
 
-
-function deleteVideoDekripsi(filename){
+// hapus video setelah didownload
+function deleteVideoDekripsi(filename) {
    const xhr = new XMLHttpRequest();
-   const params = "filename="+filename
+   const params = "filename=" + filename
    xhr.open('POST', baseurl + '/deleteVideo', true)
    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
    xhr.send(params)
+}
+
+function deleteAfterTenSeconds(decrement, filename) {
+   let noteDelete = document.querySelector('.note-delete')
+   const interval = setInterval(() => {
+      if (batasDownload === false) { // menghentikan batas donwload
+         clearInterval(interval)
+         return document.querySelector('.hitung-mundur').textContent = '-'
+      } else if (decrement == 0) {
+         clearInterval(interval)
+         deleteVideoDekripsi(filename)
+         pesanTerhapus()
+         document.querySelector('.hitung-mundur').textContent = '10'
+
+         const judulVideo = document.querySelector('.judul-video');
+         judulVideo.classList.add('d-none');
+
+         const downloadVideo = document.querySelector('.download-video');
+         downloadVideo.classList.add('d-none')
+
+         return
+
+      } else {
+         document.querySelector('.hitung-mundur').textContent = decrement
+         decrement--
+      }
+   }, 1000);
+}
+
+function pesanTerhapus() {
+   Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Link download dan video dekripsi dihapus! ',
+      showConfirmButton: false,
+      timer: 2000
+   });
 }
