@@ -16,6 +16,9 @@ class Dekripsi extends BaseController
 	// menampilkan form dashboard
 	public function index()
 	{
+		# hapus semua file di folder temp
+		delete_all_video_temp();
+		
 		$data = [
 			'title' => 'Dekripsi',
 			'active' => 'dekripsi',

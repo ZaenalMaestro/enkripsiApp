@@ -54,7 +54,7 @@
          </div>
 
          <div class="progress d-none progress-preview" style="border-radius: 0%;">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar pb-preview progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
          </div>
          <h3 class="my-auto mx-auto" id="teks-video">Video preview</h3>
          <video id="preview" class="d-none" controls="controls" style="border-color:1px solid #fff;height: 258px">

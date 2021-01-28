@@ -6,6 +6,9 @@ class Pengujian extends BaseController
 {
 	public function index()
 	{
+		# hapus semua file di folder temp
+		delete_all_video_temp();
+
 		# Insialisasi model
 		$this->testingModel = new TestingModel();
 		$data = [

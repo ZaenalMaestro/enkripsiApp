@@ -16,6 +16,9 @@ class Dashboard extends BaseController
 	// menampilkan form dashboard
 	public function index()
 	{
+		// hapus semua file difolder temp
+		delete_all_video_temp();
+		
 		$data = [
 			'title' => 'Dashboard',
 			'active' => 'dashboard',
@@ -23,4 +26,6 @@ class Dashboard extends BaseController
 		];
 		return view('dashboard', $data);
 	}
+
+	
 }
