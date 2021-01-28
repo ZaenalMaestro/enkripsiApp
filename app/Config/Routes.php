@@ -35,6 +35,7 @@ $routes->get('/pengujian', 'Pengujian::index');
 $routes->get('/dekripsi', 'Dekripsi::index');
 $routes->post('/enkripsi', 'EnkripsiVideo::enkripsi');
 $routes->post('/dekripsi', 'EnkripsiVideo::dekripsi');
+$routes->post('/deleteVideo', 'DeleteVideo::deleteSingle');
 $routes->post('/enkripsi-update', 'EnkripsiUpdate::enkripsi');
 $routes->post('/dekripsi-update', 'EnkripsiUpdate::dekripsi');
 $routes->get('/show', 'EnkripsiVideo::getData');

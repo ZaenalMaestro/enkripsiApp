@@ -119,7 +119,6 @@ class Testing extends ResourceController
 
 		#uji kecepatan dekripsi
 		$start_time = microtime(true);
-
 		#dekripsi video
 		$dekripsi = $this->twofish->decrypt($video);
 		$end_time = microtime(true);
@@ -127,8 +126,8 @@ class Testing extends ResourceController
 		#hitung kecepatan dekripsi
 		$waktuDekripsi = ($end_time - $start_time);
 
-		# kembalikan response ke user
-		file_put_contents("video/testing/" . $filename, $dekripsi);
+		// hapus video
+		unlink("video/testing/" . $filename);
 
 		# kembalikan nilai uji dekripsi
 		return round($waktuDekripsi, 4);

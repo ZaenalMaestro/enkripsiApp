@@ -110,7 +110,8 @@ function xhrRequest(url, request, fileField, pesan) {
 
                const downloadVideo = document.querySelector('.download-video');
                downloadVideo.classList.remove('d-none')
-               downloadVideo.setAttribute('href', respond.link_download)
+               downloadVideo.setAttribute('data-name', respond.nama_video)
+               downloadVideo.setAttribute('href', '#')
 
                Swal.fire({
                   position: 'center',
@@ -138,4 +139,66 @@ function xhrRequest(url, request, fileField, pesan) {
    } 
 }
 
+// download file
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('download')) {
+      e.preventDefault()
+      const filename = e.target.getAttribute('data-name')
+      const xhr = XMLHttpRequest()
+      xhr.open('GET', 'http://localhost:8080/video/temp/' + filename, true)
+      xhr.responseType = 'blob'
 
+      xhr.addEventListener('progress', function (event) {
+         let percentComplete = Math.round((event.loaded * 99) / event.total);
+         console.log(percentComplete);
+         const progressbar = document.querySelector('.pb-show');
+         progressbar.classList.replace('d-none', 'd-block');
+
+         const pbDownload = document.querySelector('.pb-download');
+         pbDownload.style.width = percentComplete + "%";
+         pbDownload.textContent = 'Download '+ percentComplete + ' %';
+
+         if (percentComplete === 99) {
+            setTimeout(() => {
+               progressbar.classList.replace('d-block', 'd-none');
+               Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Video Berhasil terdownload',
+                  showConfirmButton: false,
+                  timer: 2000
+               });
+
+               const judulVideo = document.querySelector('.judul-video');
+               judulVideo.classList.add('d-none');
+
+               const downloadVideo = document.querySelector('.download-video');
+               downloadVideo.classList.add('d-none')
+
+               // hapus video dekripsi
+               deleteVideoDekripsi(filename)
+            }, 3000)
+
+         }
+      })
+
+      xhr.onreadystatechange = function () {
+         if (this.readyState === 4 && this.status === 200) {
+            let link = document.createElement('a')
+            link.href = window.URL.createObjectURL(xhr.response)
+            link.download = filename
+            link.click();
+         }
+      }
+      xhr.send()
+   }
+});
+
+
+function deleteVideoDekripsi(filename){
+   const xhr = new XMLHttpRequest();
+   const params = "filename="+filename
+   xhr.open('POST', baseurl + '/deleteVideo', true)
+   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+   xhr.send(params)
+}

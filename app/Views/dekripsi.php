@@ -55,17 +55,21 @@
 
          <div class="card-body text-center">
             <h5 class="mb-5 mt-4 d-none judul-video"></h5>
-            <a download class="btn btn-danger d-none download-video">
+            <a class="btn btn-danger d-none download-video download">
                <i class="fas fa-download"></i>
-               <span>Download</span>
+               Download
             </a>
-         </div>
 
+            <div class="progress d-none mt-4 pb-show" style="border-radius: 0%;">
+               <div class="progress-bar pb-download progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+         </div>
       </div>
    </div>
    <!-- end form video preview -->
 
 </div>
+
 
 
 <script src="js/sweetalert2.js"></script>

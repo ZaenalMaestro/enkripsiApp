@@ -159,7 +159,8 @@ function xhrRequest(url, request, fileField, pesan) {
                   showConfirmButton: false,
                   timer: 2000
                });
-               loadData();
+               setTimeout(() => location.reload(), 3000)
+               
             } else {
                progressbar.classList.replace('d-block', 'd-none');
                progressbar.classList.add('d-none');
@@ -175,48 +176,5 @@ function xhrRequest(url, request, fileField, pesan) {
          }
       }
       xhr.send(fileField);
-   } else {
-      xhr.open(request, url);
-      xhr.onload = function () {
-         if (this.readyState == 4 && this.status == 200) {
-            const respons = JSON.parse(this.responseText);
-            bodyTable(respons.data);
-         }
-      }
-      xhr.send();
-   }
-}
-
-/*
- * fungsi load semua data video dari database
- */
-function loadData() {
-   xhrRequest(`${baseurl}/show`, 'GET');
-}
-
-/*
- * fungsi untuk memuat data kedalam datatable
- */
-function bodyTable(data) {
-   let table = '';
-   let nomor = 1;
-
-   data.forEach(video => {
-      table += `<tr>
-                  <td class="text-center">${nomor++}</td>
-                  <td class="text-justify">${video.nama_video}</td>
-                  <td class="text-center"><span class="badge badge-${video.status == 'enkripsi' ? 'primary' : 'success'}">${video.status}</span></td>
-                  <td class="text-center" style="width: 250px">`;
-
-      if (video.status == 'enkripsi') table += `<button type="button" class="btn btn-sm btn-success to-dekripsi" data-id="${video.id}" data-name="${video.nama_video}" data-toggle="modal" data-target="#exampleModalCenter">
-         <i class="fas fa-unlock"></i> Dekripsi</button>`;
-      else table += `<button type="button" class="btn btn-sm btn-primary to-enkripsi" data-id="${video.id}" data-name="${video.nama_video}" data-toggle="modal" data-target="#exampleModalCenter">
-         <i class="fas fa-lock"></i>
-          Enkripsi</button>`;
-
-      table += `<a href="video/${video.nama_video}" download class="btn btn-sm btn-danger ml-2"><i class="fas fa-download"></i><span> Download</span></a>
-                  </td>
-               </tr>`;
-   });
-   document.querySelector('.table-video').innerHTML = table;
+   } 
 }

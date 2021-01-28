@@ -100,32 +100,31 @@ class EnkripsiVideo extends ResourceController
 		$filename .= $data['video']['name'];
 
 		# memindahkan video ke folder public/video
-		move_uploaded_file($data['video']['tmp_name'], "video/$filename");
+		move_uploaded_file($data['video']['tmp_name'], "video/temp/$filename");
 
 		# set key enkripsi 
 		$this->twofish->setPassword($data['key']);
 
 		# get data video yg baru saja dipindahkan ke folder public/video		
 		try {
-			$video = file_get_contents("video/" . $filename);
+			$video = file_get_contents("video/temp/" . $filename);
 			// #dekripsi video
 			$dekripsi = $this->twofish->decrypt($video);
-			file_put_contents("video/" . $filename, $dekripsi);
+			file_put_contents("video/temp/" . $filename, $dekripsi);
 
 			// respond json
 			$respons = [
 				'status' => 200,
 				'nama_video' => $filename,
-				'link_download' => 'video/' . $filename
 			];
 			# kembalikan response ke user
 			return $this->respond($respons);
 		} catch (Exception $error) {
 			// hapus vidoe yg baru saja diupload
-			unlink("video/$filename");
+			unlink("video/temp/$filename");
 
 			# kembalikan response ke user
 			return $this->respond(['status' => 500]);
 		}
-	}
+	}	
 }
